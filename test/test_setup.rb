@@ -8,7 +8,6 @@ require 'faraday_middleware-oauth2_refresh'
 
 class OAuth2Test < Test::Unit::TestCase
   def test_setup
-
     Faraday.new 'http://example.com/api' do |conn|
       conn.request :oauth2_refresh
     end
@@ -16,6 +15,5 @@ class OAuth2Test < Test::Unit::TestCase
     ref = FaradayMiddleware::OAuth2Refresh.new
 
     assert_equal 'FaradayMiddleware::OAuth2Refresh', ref.class.name
-
   end
 end

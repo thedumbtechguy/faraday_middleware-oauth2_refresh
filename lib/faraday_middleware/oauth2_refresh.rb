@@ -12,26 +12,23 @@ module FaradayMiddleware
 
     def call(env)
       if @oauth2_token.expired?
-        @oauth2_token = @oauth2_token.refresh!({ headers: { 'Authorization' => 'Basic ' + get_api_key() } })
+        @oauth2_token = @oauth2_token.refresh!({ headers: { 'Authorization' => 'Basic ' + get_api_key } })
       end
-      
-      unless @oauth2_token.token.to_s.empty?
-        env[:request_headers][AUTH_HEADER] = %(Bearer #{@oauth2_token.token})
-      end
+
+      env[:request_headers][AUTH_HEADER] = %(Bearer #{@oauth2_token.token}) unless @oauth2_token.token.to_s.empty?
 
       @app.call env
     end
 
     def get_api_key
-      api_key = Base64.encode64("#{@oauth2_token.client.id}:#{@oauth2_token.client.secret}").gsub(/[\s]/,'')
-      return api_key
+      api_key = Base64.encode64("#{@oauth2_token.client.id}:#{@oauth2_token.client.secret}").gsub(/[\s]/, '')
+      api_key
     end
 
     def initialize(app = nil, token = nil)
       super app
       @oauth2_token = token
     end
-
   end
 end
 
