@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
     'lib/faraday_middleware/oauth2_refresh.rb',
     'test/test_setup.rb'
   ]
-  s.add_dependency 'faraday', '~> 1.0'
-  s.add_dependency 'faraday_middleware', '~> 1.0'
+  s.add_dependency 'faraday', '>= 2.3.0'
+  s.add_dependency 'faraday_middleware', '>= 1.2.0'
 
   s.add_development_dependency 'coveralls', '~> 0'
   s.add_development_dependency 'rake', '>= 12.3.3'
